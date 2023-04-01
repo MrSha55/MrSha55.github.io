@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebAR 示例</title>
+  <link rel="stylesheet" href="others/styles.css">
+  <script src="libs/aframe.min.js"></script>
+
+    <!-- AR.js Library -->
+    <!-- documentation:  https://ar-js-org.github.io/AR.js-Docs/ -->
+    <script src="libs/aframe-ar.js"></script>
+    <script src="libs/aframe-extras.min.js"></script>
+    
+
+    <!-- p5.js core library -->
+    <!-- documentation:  https://p5js.org/reference/ -->
+    <script src="libs/p5.js"></script>
+
+    <!-- AFrameP5 AR library -->
+    <!-- documentation:  https://cs.nyu.edu/~kapp/aframep5-ar -->
+    <script src="libs/aframep5_ar-v0.4.js"></script>
+
+</head>
+<body>
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <img id="my-image" src="others/a.png" alt="示例图片" />
+    </a-assets>
+
+    <a-marker type="pattern" url="others/m1.patt">
+      <a-image id="image-entity" src="#my-image" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <div class="popup">
+    <h2>欢迎使用AR.js示例！</h2>
+    <div class="slide-indicator"></div> <!-- 添加小黑块 -->
+    <div class="popup-content">
+      <p>扫描到marker后，您将看到图片和弹窗。</p>
+    </div>
+  </div>
+
+  <!-- 引入 JavaScript 代码 -->
+  <script src="others/scripts.js"></script>
+</body>
+</html>
