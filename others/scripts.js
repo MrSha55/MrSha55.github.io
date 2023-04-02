@@ -35,34 +35,5 @@ document.addEventListener("DOMContentLoaded", function () {
   marker.addEventListener("markerFound", onMarkerFound);
   marker.addEventListener("markerLost", onMarkerLost);
 
-  const slider = document.querySelector(".slideshow-container");
-  let startX = 0;
-  let endX = 0;
-  let diffX = 0;
-
-  slider.addEventListener("touchstart", (event) => {
-    startX = event.changedTouches[0].clientX;
-  });
-
-  slider.addEventListener("touchmove", (event) => {
-    endX = event.changedTouches[0].clientX;
-    diffX = endX - startX;
-    slider.style.transform = `translateX(${diffX}px)`;
-  });
-
-  slider.addEventListener("touchend", () => {
-    slider.style.transition = "transform 0.3s";
-    if (diffX < -50) {
-      slider.style.transform = "translateX(-100%)";
-    } else if (diffX > 50) {
-      slider.style.transform = "translateX(0%)";
-    } else {
-      slider.style.transform = "translateX(0%)";
-    }
-    setTimeout(() => {
-      slider.style.transition = "none";
-    }, 300);
-  });
-
 });
 
