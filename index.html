@@ -37,13 +37,19 @@
 
   <div class="popup">
     <h2>欢迎使用AR.js示例！</h2>
-    <div class="slide-indicator"></div> <!-- 添加小黑块 -->
-    <div class="popup-content">
-      <p>扫描到marker后，您将看到图片和弹窗。</p>
+    <div class="slideshow-container">
+      <div class="popup-content slide">
+        <p>扫描到marker后，您将看到图片和弹窗。</p>
+      </div>
+      <div class="popup-content slide">
+        <p>这是第二页的内容。</p>
+      </div>
+    </div>
+    <div class="slide-indicator">
+      <span class="dot active"></span>
+      <span class="dot"></span>
     </div>
   </div>
-
-  <!-- 引入 JavaScript 代码 -->
-  <script src="others/scripts.js"></script>
+  <script src="scripts.js"></script>
 </body>
 </html>
