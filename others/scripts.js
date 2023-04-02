@@ -7,6 +7,9 @@ function onMarkerFound() {
   // 显示弹窗
   var popup = document.querySelector(".popup");
   popup.classList.add("open");
+
+  popup.style.bottom = "0%";
+  initialPopupY = 0;
 }
 
 
@@ -19,6 +22,9 @@ function onMarkerLost() {
   // 隐藏弹窗
   var popup = document.querySelector(".popup");
   popup.classList.remove("open");
+
+  popup.style.bottom = "-100%";
+  initialPopupY = -100;
 }
 
 //下划事件
@@ -28,7 +34,6 @@ var initialPopupY;
 // 添加触摸事件处理器
 function onTouchStart(event) {
   initialTouchY = event.touches[0].clientY;
-  initialPopupY = parseFloat(popup.style.bottom); // 将弹窗的初始位置存储为数字
 }
 
 function onTouchMove(event) {
