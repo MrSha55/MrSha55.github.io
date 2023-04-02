@@ -59,12 +59,12 @@ function onMarkerLost() {
 // // }
 
 
-// // DOM 加载完成后执行
-// document.addEventListener("DOMContentLoaded", function () {
-//   // 为 marker 绑定事件
-//   var marker = document.querySelector("a-marker");
-//   marker.addEventListener("markerFound", onMarkerFound);
-//   marker.addEventListener("markerLost", onMarkerLost);
+// DOM 加载完成后执行
+document.addEventListener("DOMContentLoaded", function () {
+  // 为 marker 绑定事件
+  var marker = document.querySelector("a-marker");
+  marker.addEventListener("markerFound", onMarkerFound);
+  marker.addEventListener("markerLost", onMarkerLost);
 
 //   // 添加触摸事件监听器
 //   var popup = document.querySelector(".popup");
