@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
   marker.addEventListener("markerFound", onMarkerFound);
   marker.addEventListener("markerLost", onMarkerLost);
 
-   const slides = document.querySelectorAll(".slide");
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
   const dots = document.querySelectorAll(".dot");
 
   function goToSlide(index) {
@@ -48,9 +49,39 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  dots.forEach((dot, i) => {
-    dot.addEventListener("click", () => goToSlide(i));
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    goToSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    goToSlide(currentSlide);
+  }
+
+  // Add swipe event handling
+  let touchstartX = 0;
+  let touchendX = 0;
+
+  const slider = document.querySelector('.slideshow-container');
+
+  slider.addEventListener('touchstart', (event) => {
+    touchstartX = event.changedTouches[0].screenX;
   });
+
+  slider.addEventListener('touchend', (event) => {
+    touchendX = event.changedTouches[0].screenX;
+    handleSwipe();
+  });
+
+  function handleSwipe() {
+    if (touchendX < touchstartX) {
+      nextSlide();
+    }
+    if (touchendX > touchstartX) {
+      prevSlide();
+    }
+  }
 
   goToSlide(0);
 
