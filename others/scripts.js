@@ -72,5 +72,5 @@ document.addEventListener("DOMContentLoaded", function () {
 //   popup.addEventListener("touchmove", onTouchMove);
 //   popup.addEventListener("touchend", onTouchEnd);
 
-// });
+});
 
