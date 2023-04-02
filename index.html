@@ -50,6 +50,7 @@
     const popupContent = document.getElementById('popup-content');
     let isPopupVisible = false;
     let touchStartY;
+    const swipeThreshold = 50; // The minimum distance to swipe down to close the popup
 
     function showPopup() {
         popup.style.display = 'block';
@@ -69,11 +70,14 @@
 
     popupContent.addEventListener('touchmove', function(event) {
         const touchMoveY = event.touches[0].clientY;
-        if (isPopupVisible && touchMoveY > touchStartY) {
+        const touchDiff = touchMoveY - touchStartY;
+        
+        if (isPopupVisible && touchStartY < 100 && touchDiff > swipeThreshold) {
             hidePopup();
         }
     }, { passive: true });
 });
+
 
     </script>
 </body>
