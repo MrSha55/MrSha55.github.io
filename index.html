@@ -1,84 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pop-up Window</title>
-    <style>
-      body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
+  <meta charset="UTF-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <title>WebAR 示例</title>
+  <link rel="stylesheet" href="others/styles.css">
+  <script src="libs/aframe.min.js"></script>
 
-.content {
-    min-height: 200vh; /* Ensures there's enough content to scroll */
-    padding: 2rem;
-}
+    <!-- AR.js Library -->
+    <!-- documentation:  https://ar-js-org.github.io/AR.js-Docs/ -->
+    <script src="libs/aframe-ar.js"></script>
+    <script src="libs/aframe-extras.min.js"></script>
+    
 
-.popup {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-height: 100vh;
-    overflow-y: scroll;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    display: none;
-    z-index: 1000;
-}
+    <!-- p5.js core library -->
+    <!-- documentation:  https://p5js.org/reference/ -->
+    <script src="libs/p5.js"></script>
 
-.popup-content {
-    padding: 1rem;
-}
+    <!-- AFrameP5 AR library -->
+    <!-- documentation:  https://cs.nyu.edu/~kapp/aframep5-ar -->
+    <script src="libs/aframep5_ar-v0.4.js"></script>
 
-    </style>
 </head>
 <body>
-    <div class="content">
-        <!-- Your main page content goes here -->
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <img id="my-image" src="others/a.png" alt="示例图片" />
+    </a-assets>
+
+    <a-marker type="pattern" url="others/m1.patt">
+      <a-image id="image-entity" src="#my-image" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+  <div class="popup">
+    <h2>欢迎使用AR.js示例！</h2>
+    <div class="slide-indicator"></div> <!-- 添加小黑块 -->
+    <div class="popup-content">
+      <p>扫描到marker后，您将看到图片和弹窗。</p>
     </div>
-    <div class="popup" id="popup">
-        <div class="popup-content" id="popup-content">
-            <h2>Comments</h2>
-            <p>Here is a comment.</p>
-            <p>Here is another comment.</p>
-        </div>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-    const popup = document.getElementById('popup');
-    const popupContent = document.getElementById('popup-content');
-    let isPopupVisible = false;
-    let touchStartY;
-    const swipeThreshold = 50; // The minimum distance to swipe down to close the popup
+  </div>
 
-    function showPopup() {
-        popup.style.display = 'block';
-        isPopupVisible = true;
-    }
-
-    function hidePopup() {
-        popup.style.display = 'none';
-        isPopupVisible = false;
-    }
-
-    showPopup();
-
-    popupContent.addEventListener('touchstart', function(event) {
-        touchStartY = event.touches[0].clientY;
-    }, { passive: true });
-
-    popupContent.addEventListener('touchmove', function(event) {
-        const touchMoveY = event.touches[0].clientY;
-        const touchDiff = touchMoveY - touchStartY;
-        
-        if (isPopupVisible && touchStartY < 100 && touchDiff > swipeThreshold) {
-            hidePopup();
-        }
-    }, { passive: true });
-});
-
-
-    </script>
+  <!-- 引入 JavaScript 代码 -->
+  <script src="others/scripts.js"></script>
 </body>
 </html>
