@@ -47,16 +47,16 @@ function onTouchMove(event) {
 }
 
 
-function onTouchEnd(event) {
-  var finalTouchY = event.changedTouches[0].clientY;
-  var deltaY = initialTouchY - finalTouchY;
+// function onTouchEnd(event) {
+//   var finalTouchY = event.changedTouches[0].clientY;
+//   var deltaY = initialTouchY - finalTouchY;
 
-  if (deltaY < -100) { // 下滑超过100像素
-    onMarkerLost();
-  } else { // 否则，弹窗返回初始位置
-    popup.style.bottom = initialPopupY + "px";
-  }
-}
+//   if (deltaY < -100) { // 下滑超过100像素
+//     onMarkerLost();
+//   } else { // 否则，弹窗返回初始位置
+//     popup.style.bottom = initialPopupY + "px";
+//   }
+// }
 
 
 // DOM 加载完成后执行
