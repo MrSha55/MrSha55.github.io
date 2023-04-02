@@ -72,5 +72,5 @@ function onMarkerLost() {
 //   popup.addEventListener("touchmove", onTouchMove);
 //   popup.addEventListener("touchend", onTouchEnd);
 
-});
+// });
 
