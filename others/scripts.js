@@ -9,7 +9,7 @@ function onMarkerFound() {
   popup.classList.add("open");
 
   popup.style.bottom = "0%";
-  initialPopupY = 0;
+  initialPopupY = "0%";
 }
 
 
@@ -24,7 +24,7 @@ function onMarkerLost() {
   popup.classList.remove("open");
 
   popup.style.bottom = "-100%";
-  initialPopupY = -100;
+  initialPopupY = "-100%";
 }
 
 //下划事件
@@ -41,10 +41,11 @@ function onTouchMove(event) {
   var deltaY = initialTouchY - currentTouchY;
 
   if (deltaY < 0) { // 如果手指向下滑动
-    var newPopupY = initialPopupY - deltaY;
-    popup.style.bottom = newPopupY + "px";
+    var newPopupY = parseFloat(initialPopupY) - deltaY;
+    popup.style.bottom = `${newPopupY}px`;
   }
 }
+
 
 function onTouchEnd(event) {
   var finalTouchY = event.changedTouches[0].clientY;
