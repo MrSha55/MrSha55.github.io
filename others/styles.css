@@ -58,3 +58,14 @@ body {
 .dot.active {
   background-color: #717171;
 }
+
+.popup-content.slide {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  transition: transform 0.3s;
+}
+
+.popup-content.slide.active {
+  transform: translateX(-100%);
+}

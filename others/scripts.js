@@ -35,56 +35,34 @@ document.addEventListener("DOMContentLoaded", function () {
   marker.addEventListener("markerFound", onMarkerFound);
   marker.addEventListener("markerLost", onMarkerLost);
 
-  let currentSlide = 0;
-  const slides = document.querySelectorAll(".slide");
-  const dots = document.querySelectorAll(".dot");
+  const slider = document.querySelector(".slideshow-container");
+  let startX = 0;
+  let endX = 0;
+  let diffX = 0;
 
-  function goToSlide(index) {
-    slides.forEach((slide, i) => {
-      slide.style.display = i === index ? "block" : "none";
-    });
-
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === index);
-    });
-  }
-
-  function nextSlide() {
-    currentSlide = (currentSlide + 1) % slides.length;
-    goToSlide(currentSlide);
-  }
-
-  function prevSlide() {
-    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    goToSlide(currentSlide);
-  }
-
-  // Add swipe event handling
-  let touchstartX = 0;
-  let touchendX = 0;
-
-  const slider = document.querySelector('.slideshow-container');
-
-  slider.addEventListener('touchstart', (event) => {
-    touchstartX = event.changedTouches[0].screenX;
+  slider.addEventListener("touchstart", (event) => {
+    startX = event.changedTouches[0].clientX;
   });
 
-  slider.addEventListener('touchend', (event) => {
-    touchendX = event.changedTouches[0].screenX;
-    handleSwipe();
+  slider.addEventListener("touchmove", (event) => {
+    endX = event.changedTouches[0].clientX;
+    diffX = endX - startX;
+    slider.style.transform = `translateX(${diffX}px)`;
   });
 
-  function handleSwipe() {
-    if (touchendX < touchstartX) {
-      nextSlide();
+  slider.addEventListener("touchend", () => {
+    slider.style.transition = "transform 0.3s";
+    if (diffX < -50) {
+      slider.style.transform = "translateX(-100%)";
+    } else if (diffX > 50) {
+      slider.style.transform = "translateX(0%)";
+    } else {
+      slider.style.transform = "translateX(0%)";
     }
-    if (touchendX > touchstartX) {
-      prevSlide();
-    }
-  }
-
-  goToSlide(0);
-
+    setTimeout(() => {
+      slider.style.transition = "none";
+    }, 300);
+  });
 
 });
 
