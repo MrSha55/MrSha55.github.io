@@ -68,18 +68,21 @@
     // 监听弹窗上的触摸移动事件
     slideUpPopup.addEventListener('touchmove', (event) => {
         touchEndY = event.touches[0].clientY;
-        if (touchStartY > touchEndY && (touchStartY - touchEndY) > 50) {
-            slideUpPopup.style.bottom = `-${(touchStartY - touchEndY) - 50}px`;
+        if (touchStartY < touchEndY) {
+            slideUpPopup.style.bottom = `${50 - (touchEndY - touchStartY)}%`;
         }
     });
 
     // 监听弹窗上的触摸结束事件
     slideUpPopup.addEventListener('touchend', () => {
-        if (touchStartY > touchEndY && (touchStartY - touchEndY) > 50) {
+        if (touchStartY < touchEndY && (touchEndY - touchStartY) > 50) {
             slideUpPopup.classList.remove('active');
             slideUpPopup.style.bottom = '-100%';
+        } else {
+            slideUpPopup.style.bottom = '0';
         }
         touchStartY = 0;
         touchEndY = 0;
-      });
+    });
 </script>
+
