@@ -56,18 +56,41 @@
         </div>
     </div>
     <script>
-        const slider = document.getElementById('banner-slider');
-        const indicators = document.querySelectorAll('.indicator');
-        let currentIndex = 0;
+    const slider = document.getElementById('banner-slider');
+    const indicators = document.querySelectorAll('.indicator');
+    let currentIndex = 0;
+    let startTouchX = 0;
 
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                slider.style.transform = `translateX(-${index * 100}%)`;
-                indicators[currentIndex].classList.remove('active');
-                currentIndex = index;
-                indicators[currentIndex].classList.add('active');
-            });
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            indicators[currentIndex].classList.remove('active');
+            currentIndex = index;
+            indicators[currentIndex].classList.add('active');
         });
-    </script>
+    });
+
+    slider.addEventListener('touchstart', (event) => {
+        startTouchX = event.touches[0].clientX;
+    });
+
+    slider.addEventListener('touchend', (event) => {
+        const endTouchX = event.changedTouches[0].clientX;
+        const delta = endTouchX - startTouchX;
+
+        if (delta > 50 && currentIndex > 0) {
+            currentIndex--;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            indicators[currentIndex + 1].classList.remove('active');
+            indicators[currentIndex].classList.add('active');
+        } else if (delta < -50 && currentIndex < indicators.length - 1) {
+            currentIndex++;
+            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+            indicators[currentIndex - 1].classList.remove('active');
+            indicators[currentIndex].classList.add('active');
+        }
+    });
+</script>
+
 </body>
 </html>
