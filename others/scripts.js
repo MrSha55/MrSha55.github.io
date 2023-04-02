@@ -29,48 +29,48 @@ function onMarkerLost() {
 
 //下划事件
 
-var initialPopupY;
+// var initialPopupY;
 
-// 添加触摸事件处理器
-function onTouchStart(event) {
-  initialTouchY = event.touches[0].clientY;
-}
+// // 添加触摸事件处理器
+// function onTouchStart(event) {
+//   initialTouchY = event.touches[0].clientY;
+// }
 
-function onTouchMove(event) {
-  var currentTouchY = event.touches[0].clientY;
-  var deltaY = initialTouchY - currentTouchY;
+// function onTouchMove(event) {
+//   var currentTouchY = event.touches[0].clientY;
+//   var deltaY = initialTouchY - currentTouchY;
 
-  if (deltaY < 0) { // 如果手指向下滑动
-    var newPopupY = parseFloat(initialPopupY) - deltaY;
-    popup.style.bottom = `${newPopupY}px`;
-  }
-}
-
-
-// function onTouchEnd(event) {
-//   var finalTouchY = event.changedTouches[0].clientY;
-//   var deltaY = initialTouchY - finalTouchY;
-
-//   if (deltaY < -100) { // 下滑超过100像素
-//     onMarkerLost();
-//   } else { // 否则，弹窗返回初始位置
-//     popup.style.bottom = initialPopupY + "px";
+//   if (deltaY < 0) { // 如果手指向下滑动
+//     var newPopupY = parseFloat(initialPopupY) - deltaY;
+//     popup.style.bottom = `${newPopupY}px`;
 //   }
 // }
 
 
-// DOM 加载完成后执行
-document.addEventListener("DOMContentLoaded", function () {
-  // 为 marker 绑定事件
-  var marker = document.querySelector("a-marker");
-  marker.addEventListener("markerFound", onMarkerFound);
-  marker.addEventListener("markerLost", onMarkerLost);
+// // function onTouchEnd(event) {
+// //   var finalTouchY = event.changedTouches[0].clientY;
+// //   var deltaY = initialTouchY - finalTouchY;
 
-  // 添加触摸事件监听器
-  var popup = document.querySelector(".popup");
-  popup.addEventListener("touchstart", onTouchStart);
-  popup.addEventListener("touchmove", onTouchMove);
-  popup.addEventListener("touchend", onTouchEnd);
+// //   if (deltaY < -100) { // 下滑超过100像素
+// //     onMarkerLost();
+// //   } else { // 否则，弹窗返回初始位置
+// //     popup.style.bottom = initialPopupY + "px";
+// //   }
+// // }
+
+
+// // DOM 加载完成后执行
+// document.addEventListener("DOMContentLoaded", function () {
+//   // 为 marker 绑定事件
+//   var marker = document.querySelector("a-marker");
+//   marker.addEventListener("markerFound", onMarkerFound);
+//   marker.addEventListener("markerLost", onMarkerLost);
+
+//   // 添加触摸事件监听器
+//   var popup = document.querySelector(".popup");
+//   popup.addEventListener("touchstart", onTouchStart);
+//   popup.addEventListener("touchmove", onTouchMove);
+//   popup.addEventListener("touchend", onTouchEnd);
 
 });
 
