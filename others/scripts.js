@@ -9,6 +9,14 @@ function onMarkerFound() {
   popup.classList.add("open");
 }
 
+navigator.mediaDevices.getUserMedia({
+  video: {
+    width: { ideal: 1280 },
+    height: { ideal: 720 }
+  }
+});
+
+
 // 丢失 marker 的事件处理器
 function onMarkerLost() {
   // 隐藏图片
