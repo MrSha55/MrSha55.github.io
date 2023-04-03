@@ -47,8 +47,8 @@ indicators.forEach((indicator, index) => {
       indicators[currentIndex].classList.add('active');
 
       // 添加以下代码，更新指示器的transform属性
-  const sliderBackground = document.querySelector(".slider-background");
-  sliderBackground.style.transform = `translateX(${currentIndex * (100 / (indicators.length - 1))}%)`;
+    const sliderBackground = document.querySelector(".slider-background");
+    sliderBackground.style.transform = `translateX(${currentIndex * (100 / (indicators.length - 1))}%)`;
 
     } else if (delta < -50 && currentIndex < indicators.length - 1) {
       currentIndex++;
@@ -56,8 +56,8 @@ indicators.forEach((indicator, index) => {
       indicators[currentIndex - 1].classList.remove('active');
       indicators[currentIndex].classList.add('active');
 
-       const sliderBackground = document.querySelector(".slider-background");
-  sliderBackground.style.transform = `translateX(${currentIndex * (100 / (indicators.length - 1))}%)`;
+      const sliderBackground = document.querySelector(".slider-background");
+      sliderBackground.style.transform = `translateX(${currentIndex * (100 / (indicators.length - 1))}%)`;
     }
 
 

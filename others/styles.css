@@ -59,7 +59,7 @@ body {
   bottom: 15px;
   left: 0;
   right: 0;
-  width: 100%; /* 设置滑动背景的宽度 */
+  width: 20px; /* 设置滑动背景的宽度 */
   height: 5px;
   background-color: #ccc;
   margin: auto;
