@@ -3,46 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="libs/aframe.min.js"></script>
+
+    <!-- AR.js Library -->
+    <!-- documentation:  https://ar-js-org.github.io/AR.js-Docs/ -->
+    <script src="libs/aframe-ar.js"></script>
+    <script src="libs/aframe-extras.min.js"></script>
+    
+
+    <!-- p5.js core library -->
+    <!-- documentation:  https://p5js.org/reference/ -->
+    <script src="libs/p5.js"></script>
+
+    <!-- AFrameP5 AR library -->
+    <!-- documentation:  https://cs.nyu.edu/~kapp/aframep5-ar -->
+    <script src="libs/aframep5_ar-v0.4.js"></script>
+
     <title>网页Banner</title>
-    <style>
-        .banner-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
+    <style >
 
-        .banner-slider {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .banner-slide {
-            flex: 0 0 100%;
-        }
-
-        .indicator-container {
-            display: flex;
-            justify-content: center;
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-        }
-
-        .indicator {
-            width: 10px;
-            height: 10px;
-            background-color: #ccc;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-        }
-
-        .indicator.active {
-            background-color: #333;
-        }
+    
     </style>
 </head>
 <body>
+
+  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-assets>
+      <img id="my-image" src="others/a.png" alt="示例图片" />
+    </a-assets>
+
+    <a-marker type="pattern" url="others/m1.patt">
+      <a-image id="image-entity" src="#my-image" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+  </a-scene>
+
+
     <div class="banner-container">
         <div class="banner-slider" id="banner-slider">
             <div class="banner-slide"><img src="others/a.png" alt="图片1" width="100%" /></div>
@@ -54,42 +51,12 @@
             <div class="indicator" data-index="1"></div>
             <div class="indicator" data-index="2"></div>
         </div>
+        <div class="contents">
+          <h2>全新的AR语句</h2>
+        </div>
     </div>
-    <script>
-    const slider = document.getElementById('banner-slider');
-    const indicators = document.querySelectorAll('.indicator');
-    let currentIndex = 0;
-    let startTouchX = 0;
-
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            slider.style.transform = `translateX(-${index * 100}%)`;
-            indicators[currentIndex].classList.remove('active');
-            currentIndex = index;
-            indicators[currentIndex].classList.add('active');
-        });
-    });
-
-    slider.addEventListener('touchstart', (event) => {
-        startTouchX = event.touches[0].clientX;
-    });
-
-    slider.addEventListener('touchend', (event) => {
-        const endTouchX = event.changedTouches[0].clientX;
-        const delta = endTouchX - startTouchX;
-
-        if (delta > 50 && currentIndex > 0) {
-            currentIndex--;
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            indicators[currentIndex + 1].classList.remove('active');
-            indicators[currentIndex].classList.add('active');
-        } else if (delta < -50 && currentIndex < indicators.length - 1) {
-            currentIndex++;
-            slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-            indicators[currentIndex - 1].classList.remove('active');
-            indicators[currentIndex].classList.add('active');
-        }
-    });
+    <script src="others/scripts.js">
+    
 </script>
 
 </body>

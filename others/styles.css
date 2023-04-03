@@ -10,7 +10,7 @@ body {
 }
 
 
-.popup {
+.banner-container {
   position: fixed;
   bottom: -100%;
   left: 0;
@@ -25,47 +25,44 @@ body {
   border-top-right-radius: 20px; /* 添加右上角倒角 */
 }
 
-.slideshow-container {
-  position: relative;
-  overflow: hidden;
+.popup.open {
+      bottom: 0;
+    }
+
+.popup h2 {
+  margin-top: 0;
 }
 
-.popup-content {
-  display: none;
-  position: absolute;
+.popup p {
+  margin-bottom: 0;
+}
+
+.banner-slider {
+  display: flex;
+  overflow: hidden;
   width: 100%;
 }
 
-.slide {
-  display: none;
+.banner-slider img {
+  width: 100%;
+  height: auto;
 }
 
-.slide-indicator {
+.indicators {
   display: flex;
   justify-content: center;
-  align-items: center;
+  margin-top: 10px;
 }
 
-.dot {
-  height: 10px;
+.indicator {
   width: 10px;
-  background-color: #bbb;
+  height: 10px;
+  margin: 0 5px;
   border-radius: 50%;
-  display: inline-block;
-  margin: 0 2px;
+  background-color: #ccc;
+  cursor: pointer;
 }
 
-.dot.active {
-  background-color: #717171;
-}
-
-.popup-content.slide {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  transition: transform 0.3s;
-}
-
-.popup-content.slide.active {
-  transform: translateX(-100%);
+.indicator.active {
+  background-color: #333;
 }
