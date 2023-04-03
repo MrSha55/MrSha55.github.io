@@ -20,10 +20,8 @@
     <script src="libs/aframep5_ar-v0.4.js"></script>
 
     <title>网页Banner</title>
-    <style >
-
+    <link rel="stylesheet" href="others/styles.css">
     
-    </style>
 </head>
 <body>
 
@@ -40,20 +38,22 @@
   </a-scene>
 
 
-    <div class="banner-container">
+    <div class="popup">
+      <div class="popup-contents">
         <div class="banner-slider" id="banner-slider">
             <div class="banner-slide"><img src="others/a.png" alt="图片1" width="100%" /></div>
             <div class="banner-slide"><img src="others/b.png" alt="图片2" width="100%" /></div>
             <div class="banner-slide"><img src="others/c.png" alt="图片3" width="100%" /></div>
         </div>
-        <div class="indicator-container">
-            <div class="indicator active" data-index="0"></div>
-            <div class="indicator" data-index="1"></div>
-            <div class="indicator" data-index="2"></div>
+        <div class="slide-background">
+          <div class="indicator-container">
+            <div class="indicator active"></div>
+          </div>
         </div>
         <div class="contents">
           <h2>全新的AR语句</h2>
         </div>
+      </div>
     </div>
     <script src="others/scripts.js">
     
