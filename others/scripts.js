@@ -1,7 +1,3 @@
-function updateSliderIndicatorPosition(index) {
-  const sliderIndicator = document.querySelector(".slider-indicator");
-  sliderIndicator.style.transform = `translateX(${index * 33.3333}%)`;
-}
 
 function onMarkerFound() {
   // 显示图片
@@ -23,7 +19,6 @@ function onMarkerFound() {
   indicators.forEach((indicator, index) => {
     indicator.addEventListener('click', () => {
       slider.style.transform = `translateX(-${index * 100}%)`;
-      updateSliderIndicatorPosition(index);
       indicators[currentIndex].classList.remove('active');
       currentIndex = index;
       indicators[currentIndex].classList.add('active');
@@ -41,13 +36,11 @@ function onMarkerFound() {
     if (delta > 50 && currentIndex > 0) {
       currentIndex--;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      updateSliderIndicatorPosition(currentIndex);
       indicators[currentIndex + 1].classList.remove('active');
       indicators[currentIndex].classList.add('active');
     } else if (delta < -50 && currentIndex < indicators.length - 1) {
       currentIndex++;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      updateSliderIndicatorPosition(currentIndex);
       indicators[currentIndex - 1].classList.remove('active');
       indicators[currentIndex].classList.add('active');
     }
