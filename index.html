@@ -26,11 +26,15 @@
 
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
     <a-assets>
+      <img id="image1" src="others/a.png" alt="示例图片" />
+      <!-- <img id="my-image" src="others/a.png" alt="示例图片" />
       <img id="my-image" src="others/a.png" alt="示例图片" />
+      <img id="my-image" src="others/a.png" alt="示例图片" />
+      <img id="my-image" src="others/a.png" alt="示例图片" /> -->
     </a-assets>
 
     <a-marker type="pattern" url="others/m1.patt">
-      <a-image id="image-entity" src="#my-image" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
+      <a-image id="image-entity-1" src="#image1" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
@@ -40,9 +44,11 @@
     <div class="popup">
       <div class="popup-contents">
         <div class="banner-slider" id="banner-slider">
-            <div class="banner-slide"><img src="others/a.png" alt="图片1" width="100%" /> <h2>全新的AR语句</h2> </div>
+            <div class="banner-slide"><img src="others/a.png" alt="图片1" width="100%" /> 
+              <h2>全新的AR语句</h2> 
+            </div>
             <div class="banner-slide"><img src="others/b.png" alt="图片2" width="100%" /></div>
-            <div class="banner-slide"><img src="others/c.png" alt="图片3" width="100%" /></div>
+            <!-- <div class="banner-slide"><img src="others/c.png" alt="图片3" width="100%" /></div> -->
             
         </div>
         <div class="indicator-container">

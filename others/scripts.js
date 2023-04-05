@@ -1,7 +1,7 @@
 
 function onMarkerFound() {
   // 显示图片
-  var imageEntity = document.querySelector("#image-entity");
+  var imageEntity = document.querySelector("#image-entity-1");
   imageEntity.setAttribute("visible", true);
 
   // 显示弹窗
@@ -51,7 +51,7 @@ function onMarkerFound() {
 function onMarkerLost() {
   console.log("Marker lost");
   // 隐藏图片
-  var imageEntity = document.querySelector("#image-entity");
+  var imageEntity = document.querySelector("#image-entity-1");
   imageEntity.setAttribute("visible", false);
 
   // 隐藏弹窗
