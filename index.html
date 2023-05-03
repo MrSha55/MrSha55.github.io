@@ -1,67 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <script src="libs/aframe.min.js"></script>
-
-    <!-- AR.js Library -->
-    <!-- documentation:  https://ar-js-org.github.io/AR.js-Docs/ -->
-    <script src="libs/aframe-ar.js"></script>
-    <script src="libs/aframe-extras.min.js"></script>
-    
-
-    <!-- p5.js core library -->
-    <!-- documentation:  https://p5js.org/reference/ -->
-    <script src="libs/p5.js"></script>
-
-    <!-- AFrameP5 AR library -->
-    <!-- documentation:  https://cs.nyu.edu/~kapp/aframep5-ar -->
-    <script src="libs/aframep5_ar-v0.4.js"></script>
-
-    <title>网页Banner</title>
-    <link rel="stylesheet" href="others/styles.css">
-    
+  <meta charset="UTF-8">
+  <title>WebAR Demo</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
-    <a-assets>
-      <img id="image1" src="others/a.png" alt="示例图片" />
-      <!-- <img id="my-image" src="others/a.png" alt="示例图片" />
-      <img id="my-image" src="others/a.png" alt="示例图片" />
-      <img id="my-image" src="others/a.png" alt="示例图片" />
-      <img id="my-image" src="others/a.png" alt="示例图片" /> -->
-    </a-assets>
-
-    <a-marker type="pattern" url="others/m1.patt">
-      <a-image id="image-entity-1" src="#image1" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
-    </a-marker>
-
-    <a-entity camera></a-entity>
-  </a-scene>
-
-
-    <div class="popup">
-      <div class="popup-contents">
-        <div class="banner-slider" id="banner-slider">
-            <div class="banner-slide"><img src="others/d.png" alt="图片1" width="100%" /> 
-              <!-- <h2>全新的AR语句</h2>  -->
-            </div>
-            <div class="banner-slide"><img src="others/b.png" alt="图片2" width="100%" /></div>
-            <!-- <div class="banner-slide"><img src="others/c.png" alt="图片3" width="100%" /></div> -->
-            
-        </div>
-        <div class="indicator-container">
-            <div class="indicator active" data-index="0"></div>
-            <div class="indicator" data-index="1"></div>
-            <!-- <div class="indicator" data-index="2"></div> -->
-        </div>
-        
-      </div>
+  <div class="container">
+    <div class="btn-group">
+      <button class="large-btn" onclick="navigateToScanPage()"></button>
+      <button class="small-btn" onclick="openModal()"></button>
     </div>
-    <script src="others/scripts.js">
-    
-</script>
-
+  </div>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header"> <!-- 添加新的.modal-header元素 -->
+        <h3>标题</h3> <!-- 添加标题 -->
+      </div>
+      <div class="images">
+        <img src="home/a.png" alt="Image 1" class="image">
+        <img src="home/b.png" alt="Image 2" class="image">
+        <img src="home/c.png" alt="Image 3" class="image">
+        <img src="home/d.png" alt="Image 4" class="image">
+        <img src="home/e.png" alt="Image 5" class="image">
+        <img src="home/f.png" alt="Image 6" class="image">
+      </div>
+      <button class="close-btn" onclick="closeModal()">关闭</button>
+    </div>
+  </div>
+  <script src="scripts.js"></script>
 </body>
 </html>
