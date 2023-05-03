@@ -41,16 +41,16 @@ const popupContent = document.getElementById(popupContentId);
 
 function initializeSlider(popupContent) {
   const slider = popupContent.querySelector(".banner-slider");
-  const indicators = popupContent.querySelectorAll(".indicator");
+  const popupHeader = popupContent.querySelectorAll(".popup-header");
   let currentIndex = 0;
   let startTouchX = 0;
 
-  indicators.forEach((indicator, index) => {
+  popupHeader.forEach((indicator, index) => {
     indicator.addEventListener("click", () => {
       slider.style.transform = `translateX(-${index * 100}%)`;
-      indicators[currentIndex].classList.remove("active");
+      popupHeader[currentIndex].classList.remove("active");
       currentIndex = index;
-      indicators[currentIndex].classList.add("active");
+      popupHeader[currentIndex].classList.add("active");
     });
   });
 
@@ -65,13 +65,13 @@ function initializeSlider(popupContent) {
     if (delta > 50 && currentIndex > 0) {
       currentIndex--;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      indicators[currentIndex + 1].classList.remove("active");
-      indicators[currentIndex].classList.add("active");
-    } else if (delta < -50 && currentIndex < indicators.length - 1) {
+      popupHeader[currentIndex + 1].classList.remove("active");
+      popupHeader[currentIndex].classList.add("active");
+    } else if (delta < -50 && currentIndex < popupHeader.length - 1) {
       currentIndex++;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      indicators[currentIndex - 1].classList.remove("active");
-      indicators[currentIndex].classList.add("active");
+      popupHeader[currentIndex - 1].classList.remove("active");
+      popupHeader[currentIndex].classList.add("active");
     }
   });
 }
