@@ -116,67 +116,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   const popupHeader = document.querySelector('.popup-header');
-  let startY = 0;
-  let isTouching = false;
-  let popupPosition = 'middle';
-  let lastMoveTime = 0;
-  let lastMoveY = 0;
+let startY = 0;
+let isTouching = false;
+let popupPosition = 'middle';
+let lastMoveTime = 0;
+let lastMoveY = 0;
 
+marker1.addEventListener('markerFound', () => {
+  popup.style.display = 'block';
+});
 
-  marker1.addEventListener('markerFound', () => {
-    popup.style.display = 'block';
+popupHeader.addEventListener('touchstart', (e) => {
+  startY = e.touches[0].clientY;
+  isTouching = true;
+  lastMoveTime = new Date().getTime();
+  lastMoveY = startY;
+});
+
+popupHeader.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  if (!isTouching) return;
+
+  const diffY = e.touches[0].clientY - startY;
+
+  requestAnimationFrame(() => {
+    updatePopupHeight(diffY);
   });
 
-  popupHeader.addEventListener('touchstart', (e) => {
-    startY = e.touches[0].clientY;
-    isTouching = true;
-    lastMoveTime = new Date().getTime();
-    lastMoveY = startY;
-  });
+  lastMoveY = e.touches[0].clientY;
+  lastMoveTime = new Date().getTime();
+});
 
-  popupHeader.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    if (!isTouching) return;
+function updatePopupHeight(diffY) {
+  let newHeight;
 
-    const diffY = e.touches[0].clientY - startY;
-
-    requestAnimationFrame(() => {
-      updatePopupHeight(diffY);
-    });
-
-    lastMoveY = e.touches[0].clientY;
-    lastMoveTime = new Date().getTime();
-  });
-
-  function updatePopupHeight(diffY) {
-    
-    if (diffY > 0 && popupPosition === 'middle') { // 下滑
-      popup.style.height = `${422 - diffY}px`;
-    } else if (diffY < 0 && popupPosition === 'bottom') { // 上滑
-      popup.style.height = `${Math.abs(diffY)}px`;
-    }
-
-    // 防止在底部时继续向下滑动
-    if (popupPosition === 'bottom' && diffY > 0) {
-      return;
-    }
+  if (popupPosition === 'middle') {
+    newHeight = 422 - diffY;
+  } else if (popupPosition === 'bottom') {
+    newHeight = 84 + diffY;
   }
 
-  popupHeader.addEventListener('touchend', () => {
-    isTouching = false;
-    const currentHeight = parseInt(popup.style.height, 10);
-    const threshold = 20;
-    const now = new Date().getTime();
-    const velocity = (lastMoveY - startY) / (now - lastMoveTime);
+  newHeight = Math.max(Math.min(newHeight, 422), 84);
+  popup.style.height = `${newHeight}px`;
+}
 
-    if (popupPosition === 'middle' && (currentHeight <= threshold || velocity < -0.5)) {
-      popup.style.height = '84px';
-      popupPosition = 'bottom';
-    } else if (popupPosition === 'bottom' && (currentHeight >= 422 - threshold || velocity > 0.5)) {
-      popup.style.height = '422px';
-      popupPosition = 'middle';
-    } else {
-      popup.style.height = popupPosition === 'middle' ? '422px' : '84px';
-    }
-  });
+popupHeader.addEventListener('touchend', () => {
+  isTouching = false;
+  const currentHeight = parseInt(popup.style.height, 10);
+  const threshold = 20;
+  const now = new Date().getTime();
+  const velocity = (lastMoveY - startY) / (now - lastMoveTime);
+
+  if (popupPosition === 'middle' && (currentHeight <= 84 + threshold || velocity < -0.5)) {
+    popup.style.height = '84px';
+    popupPosition = 'bottom';
+  } else if (popupPosition === 'bottom' && (currentHeight >= 422 - threshold || velocity > 0.5)) {
+    popup.style.height = '422px';
+    popupPosition = 'middle';
+  } else {
+    popup.style.height = popupPosition === 'middle' ? '422px' : '84px';
+  }
+});
+
 });
