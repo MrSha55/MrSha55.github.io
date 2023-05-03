@@ -1,3 +1,9 @@
+let startY = 0;
+let initialTransformY = 0;
+let startTime = 0;
+let endTime = 0;
+let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
+var popup = document.querySelector(".popup");
 function onMarkerFound(popupContentId, imageEntityId) {
   // initializePopupSwipe();
 
@@ -16,9 +22,6 @@ function onMarkerFound(popupContentId, imageEntityId) {
 const popupContent = document.getElementById(popupContentId);
   initializeSlider(popupContent);
   
-  setTimeout(function () {
-
-}, 1000);
 
  // 显示对应的弹窗内容
   var popupContents = document.getElementsByClassName("popup-contents");
@@ -83,7 +86,7 @@ function onMarkerLost(imageEntityId) {
   imageEntity.setAttribute("visible", false);
 
   // 隐藏弹窗
-  var popup = document.querySelector(".popup");
+  // var popup = document.querySelector(".popup");
   popup.classList.remove("open");
 
   popup.style.bottom = "-100%";
@@ -97,17 +100,19 @@ function touchStart(event) {
     }
 
 function touchMove(event) {
-      let deltaY = event.touches[0].clientY - startY;
-      let newTransformY = initialTransformY + deltaY / window.innerHeight * 100;
-
+  
+    let deltaY = event.touches[0].clientY - startY;
+    console.log(initialTransformY)
+    console.log(deltaY)
+    console.log(window.innerHeight)
+    let newTransformY = initialTransformY + deltaY / window.innerHeight * 1000;
       if (newTransformY > 0 && newTransformY < 80) {
-        popup.style.transform = `translateY(${newTransformY}%)`;
-      }
+      popup.style.transform = `translateY(${deltaY}%)`;
     }
+  }
 function touchEnd() {
     let currentTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
     endTime = new Date().getTime(); // 记录触摸结束时间
-
     let timeElapsed = endTime - startTime; // 计算触摸持续时间（毫秒）
     let deltaY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]) - initialTransformY;
     let velocity = Math.abs(deltaY) / timeElapsed; // 计算滑动速度（相对百分比/毫秒）
@@ -140,12 +145,12 @@ function touchEnd() {
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
 
-// let popupHeader = document.querySelector(".popup-header");
-let startY = 0;
-let initialTransformY = 0;
-let startTime = 0;
-let endTime = 0;
-let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
+// let popup = document.querySelector(".popup-header");
+// let startY = 0;
+// let initialTransformY = 0;
+// let startTime = 0;
+// let endTime = 0;
+// let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
 
  var popup = document.querySelector(".popup");
   // 为 marker1 绑定事件
@@ -154,7 +159,7 @@ let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
     onMarkerFound("popupContent1", "#image-entity-1");
     popup.style.display = "block";
       setTimeout(() => {
-        popup.style.transform = "translateY(0)";
+        popup.style.transform = "translateY(0%)";
       }, 100);
       popup.addEventListener("touchstart", touchStart);
       popup.addEventListener("touchmove", touchMove);
@@ -178,11 +183,5 @@ let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
   marker2.addEventListener("markerLost", function () {
     onMarkerLost("#image-entity-2");
   });
-
-
-
-
-
-
 
 });
