@@ -43,21 +43,33 @@ body {
   flex-direction: row;
 }
 
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 104px; /* 设置与按钮高度相同的值，以确保按钮完全可见 */
+}
+
 .large-btn {
   background-image: url('home/1.svg');
+  outline: none;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: transparent; /* 添加此属性 */
+  background-color: transparent;
   width: 99px;
   height: 104px;
   border-radius: 8px;
   margin-right: 10px;
   border: none;
   cursor: pointer;
-  position: absolute;
-  left: 38%;
+  transform: scale(1.5);
 }
+
 
 .small-btn {
   background-image: url('home/2.svg');
@@ -79,7 +91,7 @@ body {
 /* ... 其他样式 ... */
 
 .large-btn:active, .small-btn:active {
-  transform: scale(0.95); /* 缩小按钮的大小 */
+  transform: scale(1); /* 缩小按钮的大小 */
   transition: transform 0.1s; /* 平滑的缩放效果 */
 }
 
