@@ -96,7 +96,7 @@ function touchStart(event) {
       initialTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
     }
 
-    function touchMove(event) {
+function touchMove(event) {
       let deltaY = event.touches[0].clientY - startY;
       let newTransformY = initialTransformY + deltaY / window.innerHeight * 100;
 
