@@ -41,16 +41,16 @@ const popupContent = document.getElementById(popupContentId);
 
 function initializeSlider(popupContent) {
   const slider = popupContent.querySelector(".banner-slider");
-  const popupHeader = popupContent.querySelectorAll(".popup-header");
+  const indicators = popupContent.querySelectorAll(".indicator");
   let currentIndex = 0;
   let startTouchX = 0;
 
-  popupHeader.forEach((indicator, index) => {
+  indicators.forEach((indicator, index) => {
     indicator.addEventListener("click", () => {
       slider.style.transform = `translateX(-${index * 100}%)`;
-      popupHeader[currentIndex].classList.remove("active");
+      indicators[currentIndex].classList.remove("active");
       currentIndex = index;
-      popupHeader[currentIndex].classList.add("active");
+      indicators[currentIndex].classList.add("active");
     });
   });
 
@@ -65,13 +65,13 @@ function initializeSlider(popupContent) {
     if (delta > 50 && currentIndex > 0) {
       currentIndex--;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      popupHeader[currentIndex + 1].classList.remove("active");
-      popupHeader[currentIndex].classList.add("active");
-    } else if (delta < -50 && currentIndex < popupHeader.length - 1) {
+      indicators[currentIndex + 1].classList.remove("active");
+      indicators[currentIndex].classList.add("active");
+    } else if (delta < -50 && currentIndex < indicators.length - 1) {
       currentIndex++;
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
-      popupHeader[currentIndex - 1].classList.remove("active");
-      popupHeader[currentIndex].classList.add("active");
+      indicators[currentIndex - 1].classList.remove("active");
+      indicators[currentIndex].classList.add("active");
     }
   });
 }
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 let popupHeader = document.querySelector(".popup-header");
-
+let marker1 = document.getElementById("#marker1");
 let startY = 0;
 let initialTransformY = 0;
 let startTime = 0;
