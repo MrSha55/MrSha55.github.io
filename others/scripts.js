@@ -90,6 +90,8 @@ function onMarkerLost(imageEntityId) {
   initialPopupY = "-100%";
 }
 
+
+
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
  var popup = document.querySelector(".popup");
@@ -108,5 +110,72 @@ document.addEventListener("DOMContentLoaded", function () {
     onMarkerFound("popupContent2", "#image-entity-2");  });
   marker2.addEventListener("markerLost", function () {
     onMarkerLost("#image-entity-2");
+  });
+
+
+
+
+  const popupHeader = document.querySelector('.popup-header');
+  let startY = 0;
+  let isTouching = false;
+  let popupPosition = 'middle';
+  let lastMoveTime = 0;
+  let lastMoveY = 0;
+
+
+  marker1.addEventListener('markerFound', () => {
+    popup.style.display = 'block';
+  });
+
+  popupHeader.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+    isTouching = true;
+    lastMoveTime = new Date().getTime();
+    lastMoveY = startY;
+  });
+
+  popupHeader.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (!isTouching) return;
+
+    const diffY = e.touches[0].clientY - startY;
+
+    requestAnimationFrame(() => {
+      updatePopupHeight(diffY);
+    });
+
+    lastMoveY = e.touches[0].clientY;
+    lastMoveTime = new Date().getTime();
+  });
+
+  function updatePopupHeight(diffY) {
+    if (diffY > 0 && popupPosition === 'middle') { // 下滑
+      popup.style.height = `${50 - diffY / window.innerHeight * 100}%`;
+    } else if (diffY < 0 && popupPosition === 'bottom') { // 上滑
+      popup.style.height = `${Math.abs(diffY) / window.innerHeight * 100}%`;
+    }
+
+    // 防止在底部时继续向下滑动
+    if (popupPosition === 'bottom' && diffY > 0) {
+      return;
+    }
+  }
+
+  popupHeader.addEventListener('touchend', () => {
+    isTouching = false;
+    const currentHeight = parseInt(popup.style.height, 10);
+    const threshold = 20;
+    const now = new Date().getTime();
+    const velocity = (lastMoveY - startY) / (now - lastMoveTime);
+
+    if (popupPosition === 'middle' && (currentHeight <= threshold || velocity < -0.5)) {
+      popup.style.height = '10%';
+      popupPosition = 'bottom';
+    } else if (popupPosition === 'bottom' && (currentHeight >= 50 - threshold || velocity > 0.5)) {
+      popup.style.height = '50%';
+      popupPosition = 'middle';
+    } else {
+      popup.style.height = popupPosition === 'middle' ? '50%' : '10%';
+    }
   });
 });
