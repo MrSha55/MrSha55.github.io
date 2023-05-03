@@ -90,7 +90,52 @@ function onMarkerLost(imageEntityId) {
   initialPopupY = "-100%";
 }
 
+      startTime = new Date().getTime(); // 记录触摸开始时间
+      startY = event.touches[0].clientY;
+      initialTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
+    }
 
+    function touchMove(event) {
+      let deltaY = event.touches[0].clientY - startY;
+      let newTransformY = initialTransformY + deltaY / window.innerHeight * 100;
+
+      if (newTransformY > 0 && newTransformY < 80) {
+        popup.style.transform = `translateY(${newTransformY}%)`;
+      }
+    }
+
+    function touchEnd() {
+      let currentTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
+      endTime = new Date().getTime(); // 记录触摸结束时间
+
+      let timeElapsed = endTime - startTime; // 计算触摸持续时间（毫秒）
+      let deltaY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]) - initialTransformY;
+      let velocity = Math.abs(deltaY) / timeElapsed; // 计算滑动速度（相对百分比/毫秒）
+
+      // 如果速度超过阈值，根据滑动方向判断是否展开或收缩弹窗
+      if (velocity > velocityThreshold) {
+        if (deltaY > 0) {
+          popup.style.transform = "translateY(80%)";
+        } else {
+          popup.style.transform = "translateY(0%)";
+        }
+      } else {
+        // 原有的触摸结束逻辑
+        if (currentTransformY > 30) {
+          if (currentTransformY < 5) {
+            popup.style.transform = "translateY(0%)";
+          } else {
+            popup.style.transform = "translateY(80%)";
+          }
+        } else {
+          if (currentTransformY < 65) {
+            popup.style.transform = "translateY(0%)";
+          } else {
+            popup.style.transform = "translateY(80%)";
+          }
+        }
+      }
+}
 
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
@@ -99,9 +144,23 @@ document.addEventListener("DOMContentLoaded", function () {
   var marker1 = document.querySelector("#marker1");
   marker1.addEventListener("markerFound", function () {
     onMarkerFound("popupContent1", "#image-entity-1");
+    popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.transform = "translateY(0)";
+      }, 100);
+      popup.addEventListener("touchstart", touchStart);
+      popup.addEventListener("touchmove", touchMove);
+      popup.addEventListener("touchend", touchEnd);
   });
   marker1.addEventListener("markerLost", function () {
     onMarkerLost("#image-entity-1");
+    popup.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+      popup.removeEventListener("touchstart", touchStart);
+      popup.removeEventListener("touchmove", touchMove);
+      popup.removeEventListener("touchend", touchEnd);
   });
 
   // 为 marker2 绑定事件
@@ -115,12 +174,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  const popupHeader = document.querySelector('.popup-header');
+let popupHeader = document.querySelector(".popup-header");
+
 let startY = 0;
-let isTouching = false;
-let popupPosition = 'middle';
-let lastMoveTime = 0;
-let lastMoveY = 0;
+let initialTransformY = 0;
+let startTime = 0;
+let endTime = 0;
+let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
 
 marker1.addEventListener('markerFound', () => {
   popup.style.display = 'block';
@@ -177,5 +237,6 @@ popupHeader.addEventListener('touchend', () => {
     popup.style.height = popupPosition === 'middle' ? '422px' : '84px';
   }
 });
+
 
 });
