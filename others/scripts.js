@@ -104,42 +104,49 @@ function touchStart(event) {
         popup.style.transform = `translateY(${newTransformY}%)`;
       }
     }
+function touchEnd() {
+    let currentTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
+    endTime = new Date().getTime(); // 记录触摸结束时间
 
-    function touchEnd() {
-      let currentTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
-      endTime = new Date().getTime(); // 记录触摸结束时间
+    let timeElapsed = endTime - startTime; // 计算触摸持续时间（毫秒）
+    let deltaY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]) - initialTransformY;
+    let velocity = Math.abs(deltaY) / timeElapsed; // 计算滑动速度（相对百分比/毫秒）
 
-      let timeElapsed = endTime - startTime; // 计算触摸持续时间（毫秒）
-      let deltaY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]) - initialTransformY;
-      let velocity = Math.abs(deltaY) / timeElapsed; // 计算滑动速度（相对百分比/毫秒）
-
-      // 如果速度超过阈值，根据滑动方向判断是否展开或收缩弹窗
-      if (velocity > velocityThreshold) {
-        if (deltaY > 0) {
-          popup.style.transform = "translateY(80%)";
-        } else {
+    // 如果速度超过阈值，根据滑动方向判断是否展开或收缩弹窗
+    if (velocity > velocityThreshold) {
+      if (deltaY > 0) {
+        popup.style.transform = "translateY(80%)";
+      } else {
+        popup.style.transform = "translateY(0%)";
+      }
+    } else {
+      // 原有的触摸结束逻辑
+      if (currentTransformY > 30) {
+        if (currentTransformY < 5) {
           popup.style.transform = "translateY(0%)";
+        } else {
+          popup.style.transform = "translateY(80%)";
         }
       } else {
-        // 原有的触摸结束逻辑
-        if (currentTransformY > 30) {
-          if (currentTransformY < 5) {
-            popup.style.transform = "translateY(0%)";
-          } else {
-            popup.style.transform = "translateY(80%)";
-          }
+        if (currentTransformY < 65) {
+          popup.style.transform = "translateY(0%)";
         } else {
-          if (currentTransformY < 65) {
-            popup.style.transform = "translateY(0%)";
-          } else {
-            popup.style.transform = "translateY(80%)";
-          }
+          popup.style.transform = "translateY(80%)";
         }
       }
+    }
 }
 
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
+
+// let popupHeader = document.querySelector(".popup-header");
+let startY = 0;
+let initialTransformY = 0;
+let startTime = 0;
+let endTime = 0;
+let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
+
  var popup = document.querySelector(".popup");
   // 为 marker1 绑定事件
   var marker1 = document.querySelector("#marker1");
@@ -175,69 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-let popupHeader = document.querySelector(".popup-header");
-let marker1 = document.getElementById("#marker1");
-let startY = 0;
-let initialTransformY = 0;
-let startTime = 0;
-let endTime = 0;
-let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
 
-marker1.addEventListener('markerFound', () => {
-  popup.style.display = 'block';
-});
-
-popupHeader.addEventListener('touchstart', (e) => {
-  startY = e.touches[0].clientY;
-  isTouching = true;
-  lastMoveTime = new Date().getTime();
-  lastMoveY = startY;
-});
-
-popupHeader.addEventListener('touchmove', (e) => {
-  e.preventDefault();
-  if (!isTouching) return;
-
-  const diffY = e.touches[0].clientY - startY;
-
-  requestAnimationFrame(() => {
-    updatePopupHeight(diffY);
-  });
-
-  lastMoveY = e.touches[0].clientY;
-  lastMoveTime = new Date().getTime();
-});
-
-function updatePopupHeight(diffY) {
-  let newHeight;
-
-  if (popupPosition === 'middle') {
-    newHeight = 422 - diffY;
-  } else if (popupPosition === 'bottom') {
-    newHeight = 84 + diffY;
-  }
-
-  newHeight = Math.max(Math.min(newHeight, 422), 84);
-  popup.style.height = `${newHeight}px`;
-}
-
-popupHeader.addEventListener('touchend', () => {
-  isTouching = false;
-  const currentHeight = parseInt(popup.style.height, 10);
-  const threshold = 20;
-  const now = new Date().getTime();
-  const velocity = (lastMoveY - startY) / (now - lastMoveTime);
-
-  if (popupPosition === 'middle' && (currentHeight <= 84 + threshold || velocity < -0.5)) {
-    popup.style.height = '84px';
-    popupPosition = 'bottom';
-  } else if (popupPosition === 'bottom' && (currentHeight >= 422 - threshold || velocity > 0.5)) {
-    popup.style.height = '422px';
-    popupPosition = 'middle';
-  } else {
-    popup.style.height = popupPosition === 'middle' ? '422px' : '84px';
-  }
-});
 
 
 });
