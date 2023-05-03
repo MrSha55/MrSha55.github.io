@@ -90,6 +90,7 @@ function onMarkerLost(imageEntityId) {
   initialPopupY = "-100%";
 }
 
+function touchStart(event) {
       startTime = new Date().getTime(); // 记录触摸开始时间
       startY = event.touches[0].clientY;
       initialTransformY = parseFloat(popup.style.transform.match(/translateY\((.*?)%\)/)[1]);
