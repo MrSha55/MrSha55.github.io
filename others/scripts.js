@@ -149,10 +149,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function updatePopupHeight(diffY) {
+    
     if (diffY > 0 && popupPosition === 'middle') { // 下滑
-      popup.style.height = `${50 - diffY / window.innerHeight * 100}%`;
+      popup.style.height = `${422 - diffY}px`;
     } else if (diffY < 0 && popupPosition === 'bottom') { // 上滑
-      popup.style.height = `${Math.abs(diffY) / window.innerHeight * 100}%`;
+      popup.style.height = `${Math.abs(diffY)}px`;
     }
 
     // 防止在底部时继续向下滑动
@@ -169,13 +170,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const velocity = (lastMoveY - startY) / (now - lastMoveTime);
 
     if (popupPosition === 'middle' && (currentHeight <= threshold || velocity < -0.5)) {
-      popup.style.height = '10%';
+      popup.style.height = '84px';
       popupPosition = 'bottom';
-    } else if (popupPosition === 'bottom' && (currentHeight >= 50 - threshold || velocity > 0.5)) {
-      popup.style.height = '50%';
+    } else if (popupPosition === 'bottom' && (currentHeight >= 422 - threshold || velocity > 0.5)) {
+      popup.style.height = '422px';
       popupPosition = 'middle';
     } else {
-      popup.style.height = popupPosition === 'middle' ? '50%' : '10%';
+      popup.style.height = popupPosition === 'middle' ? '422px' : '84px';
     }
   });
 });
