@@ -43,17 +43,6 @@ body {
   flex-direction: row;
 }
 
-.button-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 104px; /* 设置与按钮高度相同的值，以确保按钮完全可见 */
-}
-
 .large-btn {
   background-image: url('home/1.svg');
   outline: none;
@@ -67,7 +56,7 @@ body {
   margin-right: 10px;
   border: none;
   cursor: pointer;
-  transform: scale(1.5);
+  transform: scale(1.2);
 }
 
 
