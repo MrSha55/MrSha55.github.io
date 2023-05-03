@@ -9,6 +9,7 @@
     <script src="../libs/aframe-ar.js"></script>
     <script src="../libs/aframe-extras.min.js"></script>
     
+    
 
     <!-- p5.js core library -->
     <!-- documentation:  https://p5js.org/reference/ -->
@@ -37,10 +38,14 @@
       <a-entity
           id="image-entity-1"
           gltf-model="#model1"
-          scale="1 1 1"
+          scale="0.8 0.8 0.8"
           position="0 0 0"
-          rotation="-90 0 0"
-        ></a-entity>
+          
+          animation="property: rotation; from: -90 0 0; to: -90 360 0; dur: 10000; easing: linear; loop: true"
+        >
+          
+        </a-entity>
+
     </a-marker>
 
     <a-marker id="marker2" type="pattern" url="m2.patt">
@@ -52,7 +57,6 @@
 
     <div class="popup">
       <div class="popup-contents" id="popupContent1">
-        <div class="popup-header">向下滑动关闭</div>
           <div class="banner-slider" id="banner-slider-1">
             <div class="banner-slide"><img src="a.svg" alt="图片1" width="100%" /> 
               <!-- <h2>全新的AR语句</h2>  -->

@@ -1,6 +1,5 @@
-
 function onMarkerFound(popupContentId, imageEntityId) {
-
+  // initializePopupSwipe();
 
   // 显示图片
   var imageEntity = document.querySelector(imageEntityId);
@@ -39,57 +38,6 @@ const popupContent = document.getElementById(popupContentId);
     initialPopupY = "0%";
   }
 }
-
-function initializePopupSwipe() {
-  const popup = document.querySelector(".popup");
-  const popupHeaders = document.querySelectorAll(".popup-header");
-  let startY = 0;
-  let startTouchX = 0; // 新增变量
-  let initialPopupY = "0%";
-
-  for (let header of popupHeaders) {
-    header.addEventListener("touchstart", (event) => {
-      startY = event.touches[0].clientY;
-      startTouchX = event.touches[0].clientX; // 设置触摸开始时的水平坐标
-    });
-
-    header.addEventListener("touchmove", (event) => {
-      const currentY = event.touches[0].clientY;
-      const currentX = event.touches[0].clientX;
-      const deltaY = currentY - startY;
-      const deltaX = currentX - startTouchX;
-
-      // 只有当垂直滑动距离大于水平滑动距离时，才触发垂直滑动
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        if (deltaY > 0) {
-          // 向下滑动
-          popup.style.bottom = `calc(${initialPopupY} - ${deltaY}px)`;
-        }
-      }
-    });
-
-    header.addEventListener("touchend", (event) => {
-      const endY = event.changedTouches[0].clientY;
-      const endTouchX = event.changedTouches[0].clientX;
-      const deltaY = endY - startY;
-      const deltaX = endTouchX - startTouchX;
-
-      // 只有当垂直滑动距离大于水平滑动距离时，才触发垂直滑动
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        if (deltaY > window.innerHeight / 4) {
-          // 如果向下滑动距离超过屏幕高度的1/4，将弹窗附着在屏幕底部
-          popup.style.bottom = "-90%";
-          initialPopupY = "-90%";
-        } else {
-          // 否则弹窗回到初始位置
-          popup.style.bottom = initialPopupY;
-        }
-      }
-    });
-  }
-}
-
-
 
 function initializeSlider(popupContent) {
   const slider = popupContent.querySelector(".banner-slider");
@@ -144,7 +92,6 @@ function onMarkerLost(imageEntityId) {
 
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
-    initializePopupSwipe();
  var popup = document.querySelector(".popup");
   // 为 marker1 绑定事件
   var marker1 = document.querySelector("#marker1");
@@ -162,8 +109,4 @@ document.addEventListener("DOMContentLoaded", function () {
   marker2.addEventListener("markerLost", function () {
     onMarkerLost("#image-entity-2");
   });
-
-
 });
-
-
