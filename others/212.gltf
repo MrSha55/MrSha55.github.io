@@ -9,7 +9,7 @@
 	"nodes":[{
 		"name":"挤压",
 		"translation":[0.0,
-		0.0,
+		109.8526611328125,
 		0.0],
 		"rotation":[0.0,
 		0.0,
@@ -113,18 +113,18 @@
 			"baseColorTexture":{
 				"index":0
 			},
-			"baseColorFactor":[0.8,
-			0.8,
-			0.8,
+			"baseColorFactor":[0.75,
+			0.75,
+			0.75,
 			1.0],
 			"metallicFactor":1.0,
-			"roughnessFactor":1.0
+			"roughnessFactor":0.3
 		},
 		"emissiveFactor":[0.0,
 		0.0,
 		0.0],
 		"alphaMode":"OPAQUE",
-		"doubleSided":false,
+		"doubleSided":true,
 		"name":"PBR"
 	}],
 	"textures":[{
