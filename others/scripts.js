@@ -158,7 +158,7 @@ let imgArr = ['egg', 'd', '2', '3']
 let setImgSrc = () => {
   let eggImg = document.querySelector('#eggImg')
   console.log(imgNum)
-  eggImg.src = 'http://127.0.0.1:8887/others/' + imgArr[imgNum] + '.png'
+  eggImg.src = 'http://https://webar-carbon.gitee.io/mrsha55.github.io/others/' + imgArr[imgNum] + '.png'
 }
 let eggShow = () => {
   popupTop.style.display = 'none'
@@ -171,27 +171,6 @@ let eggShow = () => {
 }
 
 
-
-  AFRAME.registerComponent("play-on-markerfound", {
-    init: function () {
-      this.marker = this.el.parentNode;
-
-      this.marker.addEventListener("markerfound", () => {
-        const animationMixer = this.el.components["animation-mixer"].mixer;
-        if (animationMixer) {
-          animationMixer.timeScale = 1; // 播放动画
-        }
-      });
-
-      this.marker.addEventListener("markerlost", () => {
-        const animationMixer = this.el.components["animation-mixer"].mixer;
-        if (animationMixer) {
-          animationMixer.timeScale = 0; // 暂停动画
-          animationMixer.setTime(0); // 重置动画时间
-        }
-      });
-    },
-  });
 
 
 
