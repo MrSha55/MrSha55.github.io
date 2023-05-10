@@ -158,7 +158,7 @@ let imgArr = ['egg', 'd', '2', '3']
 let setImgSrc = () => {
   let eggImg = document.querySelector('#eggImg')
   console.log(imgNum)
-  eggImg.src = 'http://https://webar-carbon.gitee.io/mrsha55.github.io/others/' + imgArr[imgNum] + '.png'
+  eggImg.src = 'http://webar-carbon.gitee.io/mrsha55.github.io/others/' + imgArr[imgNum] + '.png'
 }
 let eggShow = () => {
   popupTop.style.display = 'none'
