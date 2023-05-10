@@ -115,7 +115,7 @@ body {
   text-align: center;
   color: #fff;
 /*  animation: abc 2s;*/
-/*  display: none;*/
+  display: none;
 }
 .fixed .rotate {
   position: absolute;
