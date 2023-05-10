@@ -4,9 +4,11 @@ let startTime = 0;
 let endTime = 0;
 let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
 var popup = document.querySelector(".popup");
+let fixed = document.querySelector('.fixed');
+let timeOut = ''
+let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
 function onMarkerFound(popupContentId, imageEntityId) {
   // initializePopupSwipe();
-
   // 显示图片
   var imageEntity = document.querySelector(imageEntityId);
   imageEntity.setAttribute("visible", true);
@@ -37,6 +39,9 @@ const popupContent = document.getElementById(popupContentId);
   var popup = document.querySelector(".popup");
   if (!popup.classList.contains("open")) {
     popup.classList.add("open");
+    if (timeOut) {
+      clearTimeout(timeOut)
+    }
     popup.style.bottom = "0%";
     initialPopupY = "0%";
   }
@@ -54,14 +59,19 @@ function initializeSlider(popupContent) {
       indicators[currentIndex].classList.remove("active");
       currentIndex = index;
       indicators[currentIndex].classList.add("active");
-    });
+    }, false);
   });
 
   slider.addEventListener("touchstart", (event) => {
+    event.stopPropagation()
     startTouchX = event.touches[0].clientX;
-  });
+  }, false);
+  slider.addEventListener("touchMove", (event) => {
+    event.stopPropagation()
+  }, false);
 
   slider.addEventListener("touchend", (event) => {
+    event.stopPropagation()
     const endTouchX = event.changedTouches[0].clientX;
     const delta = endTouchX - startTouchX;
 
@@ -76,7 +86,7 @@ function initializeSlider(popupContent) {
       indicators[currentIndex - 1].classList.remove("active");
       indicators[currentIndex].classList.add("active");
     }
-  });
+  }, false);
 }
 
 function onMarkerLost(imageEntityId) {
@@ -100,14 +110,15 @@ function touchStart(event) {
     }
 
 function touchMove(event) {
-  
+  // console.log(event.touches[0].clientY)
+  // console.log(popup.offsetHeight)
+  // console.log(window.innerHeight) // 844
     let deltaY = event.touches[0].clientY - startY;
-    console.log(initialTransformY)
     console.log(deltaY)
-    console.log(window.innerHeight)
-    let newTransformY = initialTransformY + deltaY / window.innerHeight * 1000;
+    let newTransformY = ((initialTransformY + deltaY) / popup.offsetHeight) * 100;
+    // console.log(newTransformY)
       if (newTransformY > 0 && newTransformY < 80) {
-      popup.style.transform = `translateY(${deltaY}%)`;
+      popup.style.transform = `translateY(${newTransformY}%)`;
     }
   }
 function touchEnd() {
@@ -142,6 +153,49 @@ function touchEnd() {
     }
 }
 
+let imgNum = -1
+let imgArr = ['egg', 'd', '2', '3']
+let setImgSrc = () => {
+  let eggImg = document.querySelector('#eggImg')
+  console.log(imgNum)
+  eggImg.src = 'http://127.0.0.1:8887/others/' + imgArr[imgNum] + '.png'
+}
+let eggShow = () => {
+  popupTop.style.display = 'none'
+  let num = Math.round(Math.random() * 10);
+    console.log(num)
+    let arr = [1, 3, 9]
+    if (arr.indexOf(num) > -1 && imgArray.indexOf(imgArr[imgNum]) === -1) {
+      fixed.style.display = 'block'
+    }
+}
+
+
+
+  AFRAME.registerComponent("play-on-markerfound", {
+    init: function () {
+      this.marker = this.el.parentNode;
+
+      this.marker.addEventListener("markerfound", () => {
+        const animationMixer = this.el.components["animation-mixer"].mixer;
+        if (animationMixer) {
+          animationMixer.timeScale = 1; // 播放动画
+        }
+      });
+
+      this.marker.addEventListener("markerlost", () => {
+        const animationMixer = this.el.components["animation-mixer"].mixer;
+        if (animationMixer) {
+          animationMixer.timeScale = 0; // 暂停动画
+          animationMixer.setTime(0); // 重置动画时间
+        }
+      });
+    },
+  });
+
+
+
+
 // DOM 加载完成后执行
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -153,19 +207,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // let velocityThreshold = 0.1; // 可以调整这个值来改变速度阈值
 
  var popup = document.querySelector(".popup");
+
   // 为 marker1 绑定事件
   var marker1 = document.querySelector("#marker1");
-  marker1.addEventListener("markerFound", function () {
+  marker1.addEventListener("markerFound", function (e) {
+    imgNum = 0
+    setImgSrc()
+    eggShow()
     onMarkerFound("popupContent1", "#image-entity-1");
     popup.style.display = "block";
       setTimeout(() => {
         popup.style.transform = "translateY(0%)";
       }, 100);
-      popup.addEventListener("touchstart", touchStart);
-      popup.addEventListener("touchmove", touchMove);
-      popup.addEventListener("touchend", touchEnd);
+      console.log(123)
+      popup.addEventListener("touchstart", touchStart, false);
+      popup.addEventListener("touchmove", touchMove, false);
+      popup.addEventListener("touchend", touchEnd, false);
   });
-  marker1.addEventListener("markerLost", function () {
+  marker1.addEventListener("markerLost", function (e) {
     onMarkerLost("#image-entity-1");
     popup.style.transform = "translateY(100%)";
       setTimeout(() => {
@@ -179,9 +238,53 @@ document.addEventListener("DOMContentLoaded", function () {
   // 为 marker2 绑定事件
   var marker2 = document.querySelector("#marker2");
   marker2.addEventListener("markerFound", function () {
+    imgNum = 1
+    setImgSrc()
+    eggShow()
     onMarkerFound("popupContent2", "#image-entity-2");  });
   marker2.addEventListener("markerLost", function () {
     onMarkerLost("#image-entity-2");
   });
 
 });
+
+
+// setImgSrc()
+let popupTop = document.querySelector('.popupTop')
+let buttonFix = document.querySelector('.buttonFix')
+buttonFix.onclick = () => {
+  imgArray.push(imgArr[imgNum])
+  localStorage.setItem('imgArr', JSON.stringify(imgArray))
+  fixed.style.display = 'none'
+  popupTop.style.display = 'block'
+  if (popupTop.style.display === 'block') {
+    timeOut = setTimeout(() => {
+      popupTop.style.display = 'none'
+    }, 5000)
+  }
+  
+}
+
+popupTop.onclick = () => {
+  // localStorage.setItem('goImg', JSON.stringify(1))
+  // window.location.href = "../index.html";
+  openModal()
+}
+let setImgBg = () => {
+      let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
+      for (let i = 0; i < imgArray.length; i++) {
+        let dom = document.querySelector('#img' + (i + 1))
+        dom.src = './' + imgArray[i] + '.png'
+      }
+    }
+
+function openModal() {
+  document.getElementById("modal").style.display = "block";
+  setImgBg()
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+    

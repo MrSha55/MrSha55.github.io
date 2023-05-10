@@ -118,7 +118,7 @@ body {
   align-items: center;
   background-color: white;
   width: 80%;
-  height: 80%;
+  height: 60%;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -132,7 +132,7 @@ body {
 .images {
   display: grid;
   grid-template-columns: repeat(2, 137px);
-  grid-template-rows: repeat(3, 176px);
+  grid-template-rows: repeat(2, 176px);
   justify-content: center;
   align-content: center;
   grid-row-gap: 12px; /* 调整垂直间距 */
@@ -160,7 +160,7 @@ body {
   border-radius: 5px;
   border: 2px solid black;
   cursor: pointer;
-  margin-top: -15%;
+/*  margin-top: -15%;*/
   transition: transform 0.1s; /* 添加过渡效果 */
 }
 

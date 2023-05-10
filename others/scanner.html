@@ -21,7 +21,22 @@
 
     <title>网页Banner</title>
     <link rel="stylesheet" href="styles.css">
-    
+    <style>
+    .imgs {
+      text-align: center;
+      box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+      padding: 20px;
+    }
+    .imgs img {
+        width: 100px;
+        height: 120px;
+        border: 1px solid #000;
+    }
+    .imgs p {
+      margin: 0;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -40,23 +55,27 @@
           gltf-model="#model1"
           scale="10 10 10"
           position="0 0 0"
-          
-          animation="property: rotation; from: -90 0 0; to: -90 360 0; dur: 10000; easing: linear; loop: true"
+          rotation= "-70 0 0"
+          animation-mixer="loop: once; clampWhenFinished: true"
         >
           
         </a-entity>
 
     </a-marker>
 
-    <a-marker id="marker2" type="pattern" url="m2.patt">
+    <a-marker id="marker2" type="pattern" url="m1.patt">
       <a-image id="image-entity-2" src="#image2" width="1" height="1" position="0 0.5 0" rotation="-90 0 0" visible="false" look-at="[camera]"></a-image>
     </a-marker>
 
     <a-entity camera></a-entity>
   </a-scene>
-
+    
     <div class="popup">
-      <div class="popup-header">按住此处滑动</div>
+      <div class="popupTop">
+        恭喜获得跑步的给爆!
+      </div>
+      <!-- <div class="popup-header">按住此处滑动</div> -->
+      <div class="popup-header"></div>
       <div class="popup-contents" id="popupContent1">
           <div class="banner-slider" id="banner-slider-1">
             <div class="banner-slide"><img src="a.svg" alt="图片1" width="100%" /> 
@@ -91,10 +110,56 @@
     </div>
 
 
+    <div class="fixed">
+      <div class="rotate">
+        <img src="bg_rotate.svg">
+      </div>
+      <div>
+        <img id="eggImg" src="egg.png" />
+      </div>
+      <div>
+        <p>恭喜获得</p>
+        <h2>跑步的给爆!</h2>
+      </div>
+      <div class="buttonFix">立即收下</div>
+    </div>
 
+    <div class="modal" id="modal">
+    <div class="modal-content">
+      <div class="modal-header"> <!-- 添加新的.modal-header元素 -->
+        <h3>标题</h3> <!-- 添加标题 -->
+      </div>
+      <div class="images">
+        <div class=imgs>
+           <img src="./../home/c.png" alt="Image 1" class="image" id="img1">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="./../home/c.png" alt="Image 1" class="image" id="img2">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="./../home/c.png" alt="Image 1" class="image" id="img3">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="./../home/c.png" alt="Image 1" class="image" id="img4">
+           <p>收集册</p>
+        </div>
+       
+        <!-- <img src="home/b.png" alt="Image 2" class="image" id="img2">
+        <img src="./../home/c.png" alt="Image 3" class="image">
+        <img src="./../home/d.png" alt="Image 4" class="image">
+        <img src="./../home/e.png" alt="Image 5" class="image">
+        <img src="./../home/f.png" alt="Image 6" class="image"> -->
+      </div>
+      <button class="close-btn" onclick="closeModal()">关闭</button>
+    </div>
     <script src="scripts.js">
     
 </script>
+<script>
+  </script>
 
 </body>
 </html>

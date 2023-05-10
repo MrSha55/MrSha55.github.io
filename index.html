@@ -5,6 +5,20 @@
   <title>WebAR Demo</title>
   <link rel="stylesheet" href="styles.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .imgs {
+      text-align: center;
+      box-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .imgs img {
+        width: 100px;
+        height: 120px;
+        border: 1px solid #000;
+        border-radius: 10px;
+    }
+  </style>
 
 </head>
 <body>
@@ -22,16 +36,42 @@
         <h3>标题</h3> <!-- 添加标题 -->
       </div>
       <div class="images">
-        <img src="home/a.png" alt="Image 1" class="image">
-        <img src="home/b.png" alt="Image 2" class="image">
+        <div class=imgs>
+           <img src="home/c.png" alt="Image 1" class="image" id="img1">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="home/c.png" alt="Image 1" class="image" id="img2">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="home/c.png" alt="Image 1" class="image" id="img3">
+           <p>收集册</p>
+        </div>
+        <div class=imgs>
+           <img src="home/c.png" alt="Image 1" class="image" id="img4">
+           <p>收集册</p>
+        </div>
+       
+        <!-- <img src="home/b.png" alt="Image 2" class="image" id="img2">
         <img src="home/c.png" alt="Image 3" class="image">
         <img src="home/d.png" alt="Image 4" class="image">
         <img src="home/e.png" alt="Image 5" class="image">
-        <img src="home/f.png" alt="Image 6" class="image">
+        <img src="home/f.png" alt="Image 6" class="image"> -->
       </div>
       <button class="close-btn" onclick="closeModal()">关闭</button>
     </div>
   </div>
   <script src="scripts.js"></script>
+  <script>
+    let setIMg = () => {
+      let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
+      for (let i = 0; i < imgArray.length; i++) {
+        let dom = document.querySelector('#img' + (i + 1))
+        dom.src = './others/' + imgArray[i] + '.png'
+      }
+    }
+    setIMg()
+  </script>
 </body>
 </html>
