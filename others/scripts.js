@@ -171,7 +171,39 @@ let eggShow = () => {
 }
 
 
+AFRAME.registerComponent('reset-animation', {
+        init: function () {
+            this.el.addEventListener('model-loaded', e => {
+                this.model = e.detail.model;
+                this.mixer = new THREE.AnimationMixer(this.model);
+                this.actions = this.model.animations.map(clip => {
+                    let action = this.mixer.clipAction(clip);
+                    action.setLoop(THREE.LoopOnce, 1);
+                    action.clampWhenFinished = true;
+                    return action;
+                });
+            });
 
+            this.el.sceneEl.addEventListener('markerFound', () => {
+                if (this.mixer && this.actions) {
+                    this.mixer.time = 0;
+                    this.actions.forEach(action => action.reset().play());
+                }
+            });
+
+            this.el.sceneEl.addEventListener('markerLost', () => {
+                if (this.mixer && this.actions) {
+                    this.actions.forEach(action => action.stop());
+                }
+            });
+        },
+
+        tick: function (time, timeDelta) {
+            if (this.mixer) {
+                this.mixer.update(timeDelta / 1000); // timeDelta is in ms
+            }
+        }
+    });
 
 
 
@@ -215,17 +247,128 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // 为 marker2 绑定事件
+  // var marker2 = document.querySelector("#marker2");
+  // marker2.addEventListener("markerFound", function () {
+  //   imgNum = 1
+  //   setImgSrc()
+  //   eggShow()
+  //   onMarkerFound("popupContent2", "#image-entity-2");  });
+  // marker2.addEventListener("markerLost", function () {
+  //   onMarkerLost("#image-entity-2");
+  // });
   var marker2 = document.querySelector("#marker2");
-  marker2.addEventListener("markerFound", function () {
-    imgNum = 1
+  marker2.addEventListener("markerFound", function (e) {
+    imgNum = 0
     setImgSrc()
     eggShow()
-    onMarkerFound("popupContent2", "#image-entity-2");  });
-  marker2.addEventListener("markerLost", function () {
+    onMarkerFound("popupContent2", "#image-entity-2");
+    popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.transform = "translateY(0%)";
+      }, 100);
+      console.log(123)
+      popup.addEventListener("touchstart", touchStart, false);
+      popup.addEventListener("touchmove", touchMove, false);
+      popup.addEventListener("touchend", touchEnd, false);
+  });
+  marker2.addEventListener("markerLost", function (e) {
     onMarkerLost("#image-entity-2");
+    popup.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+      popup.removeEventListener("touchstart", touchStart);
+      popup.removeEventListener("touchmove", touchMove);
+      popup.removeEventListener("touchend", touchEnd);
   });
 
-});
+  var marker3 = document.querySelector("#marker3");
+  marker3.addEventListener("markerFound", function (e) {
+    imgNum = 0
+    setImgSrc()
+    eggShow()
+    onMarkerFound("popupContent3", "#image-entity-3");
+    popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.transform = "translateY(0%)";
+      }, 100);
+      console.log(123)
+      popup.addEventListener("touchstart", touchStart, false);
+      popup.addEventListener("touchmove", touchMove, false);
+      popup.addEventListener("touchend", touchEnd, false);
+  });
+  marker3.addEventListener("markerLost", function (e) {
+    onMarkerLost("#image-entity-3");
+    popup.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+      popup.removeEventListener("touchstart", touchStart);
+      popup.removeEventListener("touchmove", touchMove);
+      popup.removeEventListener("touchend", touchEnd);
+  });
+
+
+
+var marker4 = document.querySelector("#marker4");
+  marker4.addEventListener("markerFound", function (e) {
+    imgNum = 0
+    setImgSrc()
+    eggShow()
+    onMarkerFound("popupContent4", "#image-entity-4");
+    popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.transform = "translateY(0%)";
+      }, 100);
+      console.log(123)
+      popup.addEventListener("touchstart", touchStart, false);
+      popup.addEventListener("touchmove", touchMove, false);
+      popup.addEventListener("touchend", touchEnd, false);
+  });
+  marker4.addEventListener("markerLost", function (e) {
+    onMarkerLost("#image-entity-4");
+    popup.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+      popup.removeEventListener("touchstart", touchStart);
+      popup.removeEventListener("touchmove", touchMove);
+      popup.removeEventListener("touchend", touchEnd);
+  });
+
+  var marker5 = document.querySelector("#marker5");
+  marker5.addEventListener("markerFound", function (e) {
+    imgNum = 0
+    setImgSrc()
+    eggShow()
+    onMarkerFound("popupContent5", "#image-entity-5");
+    popup.style.display = "block";
+      setTimeout(() => {
+        popup.style.transform = "translateY(0%)";
+      }, 100);
+      console.log(123)
+      popup.addEventListener("touchstart", touchStart, false);
+      popup.addEventListener("touchmove", touchMove, false);
+      popup.addEventListener("touchend", touchEnd, false);
+  });
+  marker5.addEventListener("markerLost", function (e) {
+    onMarkerLost("#image-entity-5");
+    popup.style.transform = "translateY(100%)";
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+      popup.removeEventListener("touchstart", touchStart);
+      popup.removeEventListener("touchmove", touchMove);
+      popup.removeEventListener("touchend", touchEnd);
+   });
+
+  });
+
+
+
+
+
+
 
 
 // setImgSrc()
