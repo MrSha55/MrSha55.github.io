@@ -197,7 +197,7 @@ h3 {
     position: fixed;
     display: inline-block;
     cursor: pointer;
-    bottom: 18%;  /* Set the distance from the bottom */
+    bottom: 25%;  /* Set the distance from the bottom */
     left: 50%;  /* Center horizontally */
     transform: translateX(-50%);  /* Adjust position for centering */
 }
@@ -206,7 +206,7 @@ h3 {
   visibility: visible;
   width: 110px;
   background-color: #ffffff;
-  border: 3px solid #F06425;  /* Add orange border */
+  border: 2px solid #F06425;  /* Add orange border */
   color: #F06425;
   font-weight: bold;
   text-align: center;
