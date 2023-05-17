@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>WebAR Demo</title>
   <link rel="stylesheet" href="styles.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width">
   <style>
     .imgs {
       text-align: center;
@@ -23,8 +23,12 @@
 </head>
 <body>
   <div class="container">
+    <div class="tooltip">
+        <span class="tooltip-text">点击进入AR扫描哦！</span>
+    </div>
     <div class="btn-group">
       <div class="button-wrapper">
+
       <button class="large-btn" onclick="navigateToScanPage()"></button>
       </div>
       <button class="small-btn" onclick="openModal()"></button>
@@ -33,31 +37,25 @@
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="modal-header"> <!-- 添加新的.modal-header元素 -->
-        <h3>标题</h3> <!-- 添加标题 -->
+        <h3>彩蛋收集册</h3> <!-- 添加标题 -->
       </div>
       <div class="images">
         <div class=imgs>
-           <img src="home/c.png" alt="Image 1" class="image" id="img1">
+           <img src="others/1.png" alt="Image 1" class="image" id="img1">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="home/c.png" alt="Image 1" class="image" id="img2">
+           <img src="others/2.png" alt="Image 1" class="image" id="img2">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="home/c.png" alt="Image 1" class="image" id="img3">
+           <img src="others/3.png" alt="Image 1" class="image" id="img3">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="home/c.png" alt="Image 1" class="image" id="img4">
+           <img src="others/4.png" alt="Image 1" class="image" id="img4">
            <p>收集册</p>
         </div>
-       
-        <!-- <img src="home/b.png" alt="Image 2" class="image" id="img2">
-        <img src="home/c.png" alt="Image 3" class="image">
-        <img src="home/d.png" alt="Image 4" class="image">
-        <img src="home/e.png" alt="Image 5" class="image">
-        <img src="home/f.png" alt="Image 6" class="image"> -->
       </div>
       <button class="close-btn" onclick="closeModal()">关闭</button>
     </div>
@@ -68,7 +66,7 @@
       let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
       for (let i = 0; i < imgArray.length; i++) {
         let dom = document.querySelector('#img' + (i + 1))
-        dom.src = './others/' + imgArray[i] + '.png'
+        dom.src = 'others/' + imgArray[i] + '.png'
       }
     }
     setIMg()

@@ -154,7 +154,7 @@ function touchEnd() {
 }
 
 let imgNum = -1
-let imgArr = ['egg', 'd', '2', '3']
+let imgArr = ['1', '2', '3', '4']
 let setImgSrc = () => {
   let eggImg = document.querySelector('#eggImg')
   console.log(imgNum)
@@ -204,6 +204,7 @@ AFRAME.registerComponent('reset-animation', {
             }
         }
     });
+
 
 
 
