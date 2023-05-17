@@ -110,9 +110,6 @@ function touchStart(event) {
     }
 
 function touchMove(event) {
-  // console.log(event.touches[0].clientY)
-  // console.log(popup.offsetHeight)
-  // console.log(window.innerHeight) // 844
     let deltaY = event.touches[0].clientY - startY;
     console.log(deltaY)
     let newTransformY = ((initialTransformY + deltaY) / popup.offsetHeight) * 100;
