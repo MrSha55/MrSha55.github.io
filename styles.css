@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url('home/a.jpg'); /* 设置背景图片文件路径 */
+  background-image: url('home/a.png'); /* 设置背景图片文件路径 */
   background-size: 100% auto; /* 设置背景图片的高度为屏幕高度，宽度自动调整 */
   background-repeat: no-repeat; /* 不重复背景图片 */
   background-position:left 20% center; /* 将背景图片定位在屏幕中心 */
