@@ -210,7 +210,7 @@ window.onload = function() {
         // 当异步操作完成，检查响应
         if(response.ok) {
             return response.png();
-            return response.gltf();  // 返回一个解析 JSON 的新 Promise
+              // 返回一个解析 JSON 的新 Promise
         } else {
             throw new Error('Network response was not ok.');
         }
