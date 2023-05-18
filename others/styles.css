@@ -190,7 +190,7 @@ body {
   border-radius: 11px;
   box-sizing: border-box;
   display: none;
-  animation: box 0.2s linear; 
+  animation: box 0.4s linear; 
   animation-fill-mode: forwards;
 }
 
