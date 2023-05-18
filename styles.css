@@ -200,7 +200,7 @@ h3 {
     position: fixed;
     display: inline-block;
     cursor: pointer;
-    bottom: 18%;  /* Set the distance from the bottom */
+    bottom: 130px;  /* Set the distance from the bottom */
     left: 50%;  /* Center horizontally */
     transform: translateX(-50%);  /* Adjust position for centering */
 }
