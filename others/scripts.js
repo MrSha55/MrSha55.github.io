@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // });
   var marker2 = document.querySelector("#marker2");
   marker2.addEventListener("markerFound", function (e) {
-    imgNum = 0
+    imgNum = 1
     setImgSrc()
     eggShow()
     onMarkerFound("popupContent2", "#image-entity-2");
@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var marker3 = document.querySelector("#marker3");
   marker3.addEventListener("markerFound", function (e) {
-    imgNum = 0
+    imgNum = 2
     setImgSrc()
     eggShow()
     onMarkerFound("popupContent3", "#image-entity-3");
@@ -310,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 var marker4 = document.querySelector("#marker4");
   marker4.addEventListener("markerFound", function (e) {
-    imgNum = 0
+    imgNum = 3
     setImgSrc()
     eggShow()
     onMarkerFound("popupContent4", "#image-entity-4");
@@ -373,6 +373,7 @@ var marker4 = document.querySelector("#marker4");
 let popupTop = document.querySelector('.popupTop')
 let buttonFix = document.querySelector('.buttonFix')
 buttonFix.onclick = () => {
+  console.log("点到了")
   imgArray.push(imgArr[imgNum])
   localStorage.setItem('imgArr', JSON.stringify(imgArray))
   fixed.style.display = 'none'
@@ -392,9 +393,9 @@ popupTop.onclick = () => {
 }
 let setImgBg = () => {
       let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
-      for (let i = 0; i < imgArray.length; i++) {
-        let dom = document.querySelector('#img' + (i + 1))
-        dom.src = './' + imgArray[i] + '.png'
+     for (let i = 0; i < imgArray.length; i++) {
+        let dom = document.querySelector('#img' + imgArray[i])
+          dom.src = 'others/' + imgArray[i] + '.png'
       }
     }
 

@@ -41,19 +41,19 @@
       </div>
       <div class="images">
         <div class=imgs>
-           <img src="others/1.png" alt="Image 1" class="image" id="img1">
+           <img src="others/5.png" alt="Image 1" class="image" id="img1">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="others/2.png" alt="Image 1" class="image" id="img2">
+           <img src="others/6.png" alt="Image 1" class="image" id="img2">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="others/3.png" alt="Image 1" class="image" id="img3">
+           <img src="others/7.png" alt="Image 1" class="image" id="img3">
            <p>收集册</p>
         </div>
         <div class=imgs>
-           <img src="others/4.png" alt="Image 1" class="image" id="img4">
+           <img src="others/8.png" alt="Image 1" class="image" id="img4">
            <p>收集册</p>
         </div>
       </div>
@@ -65,8 +65,8 @@
     let setIMg = () => {
       let imgArray = JSON.parse(localStorage.getItem('imgArr')) || []
       for (let i = 0; i < imgArray.length; i++) {
-        let dom = document.querySelector('#img' + (i + 1))
-        dom.src = 'others/' + imgArray[i] + '.png'
+        let dom = document.querySelector('#img' + imgArray[i])
+          dom.src = 'others/' + imgArray[i] + '.png'
       }
     }
     setIMg()

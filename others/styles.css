@@ -114,6 +114,7 @@ body {
   height: 100%;
   text-align: center;
   color: #fff;
+  z-index: 100;
 /*  animation: abc 2s;*/
   display: none;
 }
@@ -155,12 +156,26 @@ body {
   margin-bottom: 10%;
   width: 100%;
 }
+#eggImg {
+  filter:opacity(10%);
+  animation: imgBox 5s;
+  animation-fill-mode: forwards;
+}
+@keyframes imgBox {
+  from {
+    filter:opacity(10%);
+  }
+  to {
+    filter:opacity(100%);
+  }
+}
 .buttonFix {
   margin-top: 10%;
   display: inline-block;
   padding: 10px 20px;
   background: orange;
   border-radius: 8px;
+  z-index: 200;
 }
 
 .popupTop {
@@ -169,14 +184,24 @@ body {
   width: 100%;
   line-height: 40px;
   top: -50px;
-  left: 0;
+  left: -100%;
   background: #fff;
   border: 2px solid #000;
   border-radius: 11px;
   box-sizing: border-box;
   display: none;
+  animation: box 0.2s linear; 
+  animation-fill-mode: forwards;
 }
 
+@keyframes box {
+  from {
+    left: -100%;
+  }
+  to {
+    left: 0;
+  }
+}
 /* 弹窗内容 */
 
 .modal {
