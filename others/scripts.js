@@ -202,6 +202,29 @@ AFRAME.registerComponent('reset-animation', {
         }
     });
 
+// Fetch API 请求是异步的
+var asyncOperation = fetch('https://webar-carbon.gitee.io/mrsha55.github.io/others/scanner.html');
+
+window.onload = function() {
+    asyncOperation.then(function(response) {
+        // 当异步操作完成，检查响应
+        if(response.ok) {
+            return response.png();
+            return response.gltf();  // 返回一个解析 JSON 的新 Promise
+        } else {
+            throw new Error('Network response was not ok.');
+        }
+    }).then(function(data) {
+        // 在这里处理你的数据
+        console.log(data);
+        // 数据处理完后，隐藏加载动画
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('loadingText').style.display = 'none';
+    }).catch(function(error) {
+        // 如果在任何地方出现错误，都会跳到这里
+        console.log('There has been a problem with your fetch operation: ', error.message);
+    });
+};
 
 
 

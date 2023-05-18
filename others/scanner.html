@@ -19,8 +19,15 @@
     <!-- documentation:  https://cs.nyu.edu/~kapp/aframep5-ar -->
     <script src="../libs/aframep5_ar-v0.4.js"></script>
 
-    <title>“碳寻”信息交互设计</title>
+    <!-- <title>“碳寻”信息交互设计</title> -->
+    <p id="loadingText">正在加载...</p>
+    <!-- 加载动画 -->
+    <div id="loading" class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
 
+    
 
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -42,6 +49,7 @@
 </head>
 <body>
 
+
   <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
     <a-assets>
       <a-asset-item id="model1" src="1.gltf"></a-asset-item>
@@ -56,7 +64,7 @@
       <a-entity
           id="image-entity-1"
           gltf-model="#model1"
-          scale="3 3 3"
+          scale="4 4 4"
           position="0 0 0"
           rotation= "-70 0 0"
           reset-animation
@@ -70,7 +78,7 @@
       <a-entity
           id="image-entity-2"
           gltf-model="#model2"
-          scale="3 3 3"
+          scale="4 4 4"
           position="0 0 0"
           rotation= "-70 0 0"
           reset-animation
@@ -83,7 +91,7 @@
       <a-entity
           id="image-entity-3"
           gltf-model="#model3"
-          scale="3 3 3"
+          scale="4 4 4"
           position="0 0 0"
           rotation= "-70 0 0"
           reset-animation
@@ -97,7 +105,7 @@
       <a-entity
           id="image-entity-4"
           gltf-model="#model4"
-          scale="3 3 3"
+          scale="4 4 4"
           position="0 0 0"
           rotation= "-70 0 0"
           reset-animation
@@ -111,7 +119,7 @@
       <a-entity
           id="image-entity-5"
           gltf-model="#model5"
-          scale="3 3 3"
+          scale="4 4 4"
           position="0 0 0"
           rotation= "-70 0 0"
           reset-animation
