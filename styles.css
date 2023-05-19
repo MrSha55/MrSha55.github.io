@@ -93,7 +93,9 @@ body {
 /* ... 其他样式 ... */
 
 .large-btn:active, .small-btn:active {
+  -webkit-transform: scale(0.9); /* 缩小按钮的大小 */
   transform: scale(0.9); /* 缩小按钮的大小 */
+  -webkit-transition: -webkit-transform 0.1s; /* 平滑的缩放效果 */
   transition: transform 0.1s; /* 平滑的缩放效果 */
 }
 
