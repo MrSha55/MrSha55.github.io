@@ -248,6 +248,16 @@ body {
   position: relative; /* 修改为相对定位 */
 }
 
+@media (max-height: 800px) {
+  .modal-content {
+    height: 70%;
+  }
+  .images {
+    margin-top: 30px;
+    grid-template-rows: repeat(2, 140px);
+  }
+}
+
 
 .image {
   width: 137px;
