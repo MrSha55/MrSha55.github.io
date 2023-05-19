@@ -161,7 +161,7 @@ let eggShow = () => {
   popupTop.style.display = 'none'
   let num = Math.round(Math.random() * 10);
     console.log(num)
-    let arr = [1]
+    let arr = []
     if (arr.indexOf(num) > -1 && imgArray.indexOf(imgArr[imgNum]) === -1) {
       fixed.style.display = 'block'
     }

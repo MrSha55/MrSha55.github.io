@@ -133,7 +133,7 @@ body {
 
 .images {
   display: grid;
-  grid-template-columns: repeat(2, 137px);
+  grid-template-columns: repeat(2, 50%);
   grid-template-rows: repeat(2, 176px);
   justify-content: center;
   align-content: center;
@@ -142,6 +142,13 @@ body {
   transform: scale(0.85); /* 缩小整体比例 */
   width: 100%;
   position: relative; /* 修改为相对定位 */
+}
+
+@media (max-height: 670px) {
+  .images {
+    margin-top: 30px;
+    grid-template-rows: repeat(2, 140px);
+  }
 }
 
 
